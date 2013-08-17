@@ -40,7 +40,25 @@ class Version {
                 return -1;
             }
 
+            $len_a = strlen($a->pre_release);
+            $len_b = strlen($b->pre_release);
+            if ($len_a < $len_b) {
+                $pos = strpos($b->pre_release, $a->pre_release);
+                if ($pos === 0) {
+                    return -1;
+                }
+            } elseif ($len_b < $len_a) {
+                $pos = strpos($a->pre_release, $b->pre_release);
+                if ($pos === 0) {
+                    return 1;
+                }
+            }
+
+            return strcmp($a->pre_release, $b->pre_release);
+        } elseif ($b->pre_release !== '') {
+            return 1;
         }
+
 
         return 0;
     }
