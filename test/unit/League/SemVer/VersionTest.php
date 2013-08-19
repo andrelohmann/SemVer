@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Semver;
+namespace League\SemVer;
 
 class VersionTest extends \PHPUnit_Framework_TestCase
 {

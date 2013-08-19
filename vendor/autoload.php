@@ -5,14 +5,14 @@ spl_autoload_register(function($class) {
     $test = __DIR__ . '/../test/unit';
     $identifier = str_replace('\\', '/', $class);
     switch($identifier) {
-        case 'League/Semver/Parser':
-        case 'League/Semver/RegexParser':
-        case 'League/Semver/CachingParser':
-        case 'League/Semver/Version':
+        case 'League/SemVer/Parser':
+        case 'League/SemVer/RegexParser':
+        case 'League/SemVer/CachingParser':
+        case 'League/SemVer/Version':
             require "$src/$identifier.php";
             break;
 
-        case 'League/Semver/ParserTest':
+        case 'League/SemVer/ParserTest':
             require "$test/$identifier.php";
     }
 });

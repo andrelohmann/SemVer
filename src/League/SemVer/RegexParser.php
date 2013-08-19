@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Semver;
+namespace League\SemVer;
 
 class RegexParser implements Parser
 {
