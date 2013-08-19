@@ -59,6 +59,8 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
             '1.0.0+abc.01' => ['1.0.0+abc.01', new Version('1', '0', '0', [], ['abc','01'])],
             '1.0.0-alpha+abc' => ['1.0.0-alpha+abc', new Version('1', '0', '0', ['alpha'], ['abc'])],
             '1.0.0-alpha.1+a48bc.01' => ['1.0.0-alpha.1+a48bc.01', new Version('1', '0', '0', ['alpha','1'], ['a48bc','01'])],
+
+            '1.0.0-0a' => ['1.0.0-0a', new Version('1', '0', '0', ['0a'], [])],
         ];
     }
 
