@@ -1,8 +1,9 @@
 <?php
 
 require_once 'Version.php';
+require_once 'Parser.php';
 
-class RegexParser {
+class RegexParser implements Parser {
 
     private $regex = "/^
         (?#major)(0|(?:[1-9][0-9]*))
