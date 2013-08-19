@@ -26,7 +26,8 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
             'Leading 0 minor' => ['0.01.0'],
             'Leading 0 patch' => ['0.0.01'],
             'Leading 0 pre-release' => ['1.0.0-rc.01'],
-            'Empt dot-separated pre-release identifier' => ['1.0.0-rc.'],
+            'Empt ydot-separated pre-release identifier' => ['1.0.0-rc.'],
+            'Empty dot-separated build identifier' => ['1.0.0+rc.'],
         ];
     }
 
@@ -57,6 +58,7 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
             '1.0.0+abc' => ['1.0.0+abc', new Version('1', '0', '0', [], ['abc'])],
             '1.0.0+abc.01' => ['1.0.0+abc.01', new Version('1', '0', '0', [], ['abc','01'])],
             '1.0.0-alpha+abc' => ['1.0.0-alpha+abc', new Version('1', '0', '0', ['alpha'], ['abc'])],
+            '1.0.0-alpha.1+a48bc.01' => ['1.0.0-alpha.1+a48bc.01', new Version('1', '0', '0', ['alpha','1'], ['a48bc','01'])],
         ];
     }
 
