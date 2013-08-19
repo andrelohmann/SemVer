@@ -1,0 +1,14 @@
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="Parsers">
+            <file>./test/unit/League/Semver/RegexParserTest.php</file>
+            <file>./test/unit/League/Semver/CachingParserTest.php</file>
+        </testsuite>
+        <testsuite name="Version">
+            <file>./test/unit/League/Semver/VersionTest.php</file>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-text" target="php://stdout" lowUpperBound="35" highLowerBound="75" />
+    </logging>
+</phpunit>

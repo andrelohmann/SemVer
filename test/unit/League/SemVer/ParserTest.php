@@ -1,15 +1,17 @@
 <?php
 
-require_once __DIR__ . '/../../Parser.php';
+namespace League\Semver;
 
-abstract class ParserTest extends \PHPUnit_Framework_TestCase {
+abstract class ParserTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @return Parser
      */
     abstract function makeParser();
 
-    function provideBadCases() {
+    function provideBadCases()
+    {
         return [
             ['.'],
             ['..'],
@@ -39,7 +41,8 @@ abstract class ParserTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider provideBadCases
      */
-    function testBadCases($expr) {
+    function testBadCases($expr)
+    {
         $parser = new RegexParser();
         $this->assertFalse($parser->isValidVersion($expr));
 
@@ -47,7 +50,8 @@ abstract class ParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($actual);
     }
 
-    function provideGoodCases() {
+    function provideGoodCases()
+    {
         return [
             '0.0.0' => ['0.0.0', new Version('0', '0', '0', [], [])],
             '1.0.0' => ['1.0.0', new Version('1', '0', '0', [], [])],
@@ -74,11 +78,13 @@ abstract class ParserTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider provideGoodCases
      */
-    function testGoodCases($expr, Version $expected) {
+    function testGoodCases($expr, Version $expected)
+    {
         $parser = $this->makeParser();
         $this->assertTrue($parser->isValidVersion($expr));
 
         $actual = $parser->parse($expr);
         $this->assertEquals($expected, $actual);
     }
+
 }

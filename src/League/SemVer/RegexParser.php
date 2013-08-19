@@ -1,9 +1,9 @@
 <?php
 
-require_once 'Version.php';
-require_once 'Parser.php';
+namespace League\Semver;
 
-class RegexParser implements Parser {
+class RegexParser implements Parser
+{
 
     private $regex = "/^
         (?#major)(0|(?:[1-9][0-9]*))
@@ -30,9 +30,10 @@ class RegexParser implements Parser {
         )?
     \$/x";
 
-    function parse($version) {
+    function parse($version)
+    {
         $matches = array();
-        if ($r = @preg_match($this->regex, $version, $matches)) {
+        if ($r = preg_match($this->regex, $version, $matches)) {
 
             $matches[4] = empty($matches[4])
                 ? []
@@ -50,13 +51,11 @@ class RegexParser implements Parser {
                 $matches[5]
             );
         }
-        if ($r === FALSE) {
-            throw new Exception(preg_last_error());
-        }
-        return NULL;
+        return null;
     }
 
-    function isValidVersion($string) {
+    function isValidVersion($string)
+    {
         return preg_match($this->regex, $string) === 1;
     }
 

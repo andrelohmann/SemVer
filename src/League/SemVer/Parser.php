@@ -1,7 +1,9 @@
 <?php
 
+namespace League\Semver;
 
-interface Parser {
+interface Parser
+{
 
     /**
      * @param string $version

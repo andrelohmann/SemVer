@@ -1,10 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../../Version.php';
+namespace League\Semver;
 
-class VersionTest extends \PHPUnit_Framework_TestCase {
+class VersionTest extends \PHPUnit_Framework_TestCase
+{
 
-    function provideEqualCases() {
+    function provideEqualCases()
+    {
         return [
             '0.0.0 == 0.0.0' => [
                 [0, 0, 0, [], []],
@@ -20,7 +22,9 @@ class VersionTest extends \PHPUnit_Framework_TestCase {
             ],
         ];
     }
-    function provideLessThanCases() {
+
+    function provideLessThanCases()
+    {
         return [
             '1.0.0 vs 2.0.0' => [
                 [1, 0, 0, [], []],
@@ -69,7 +73,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase {
         ];
     }
 
-    function makeVersion(array $values) {
+    function makeVersion(array $values)
+    {
         return new Version(
             $values[0],
             $values[1],
@@ -82,7 +87,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider provideEqualCases
      */
-    function testEqualCases($aArray, $bArray) {
+    function testEqualCases($aArray, $bArray)
+    {
         $a = $this->makeVersion($aArray);
         $b = $this->makeVersion($bArray);
         $actual = Version::compare($a, $b);
@@ -92,7 +98,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider provideLessThanCases
      */
-    function testLessThanCases($aArray, $bArray) {
+    function testLessThanCases($aArray, $bArray)
+    {
         $a = $this->makeVersion($aArray);
         $b = $this->makeVersion($bArray);
 

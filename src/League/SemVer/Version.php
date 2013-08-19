@@ -1,5 +1,7 @@
 <?php
 
+namespace League\Semver;
+
 class Version {
 
     public $major = 0;
@@ -8,7 +10,8 @@ class Version {
     public $pre_release = [];
     public $build = [];
 
-    function __construct($major, $minor, $patch, $pre_release = [], $build = []) {
+    public function __construct($major, $minor, $patch, $pre_release = [], $build = [])
+    {
         $this->major = $major;
         $this->minor = $minor;
         $this->patch = $patch;
@@ -16,7 +19,8 @@ class Version {
         $this->build = $build;
     }
 
-    static function compare(Version $a, Version $b) {
+    public static function compare(Version $a, Version $b)
+    {
         if ($a->major < $b->major) {
             return -1;
         } elseif ($b->major < $a->major) {
@@ -45,8 +49,8 @@ class Version {
             for ($i = 0; $i < $len; $i++) {
                 $aVal = $a->pre_release[$i];
                 $bVal = $b->pre_release[$i];
-                $is_int_a = filter_var($aVal, FILTER_VALIDATE_INT) !== FALSE;
-                $is_int_b = filter_var($bVal, FILTER_VALIDATE_INT) !== FALSE;
+                $is_int_a = filter_var($aVal, FILTER_VALIDATE_INT) !== false;
+                $is_int_b = filter_var($bVal, FILTER_VALIDATE_INT) !== false;
                 if ($is_int_a) {
                     if ($is_int_b && $aVal !== $bVal) {
                         return $aVal - $bVal;
@@ -60,6 +64,7 @@ class Version {
                 }
             }
             return $aCount - $bCount;
+
         } elseif ($b->pre_release !== []) {
             return 1;
         }

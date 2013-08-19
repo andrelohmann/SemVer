@@ -1,6 +1,9 @@
 <?php
 
-class CachingParser implements Parser, Countable {
+namespace League\Semver;
+
+class CachingParser implements Parser, \Countable
+{
 
     /**
      * @var Parser
@@ -11,7 +14,8 @@ class CachingParser implements Parser, Countable {
 
     private $cache = [];
 
-    function __construct(Parser $parser, $limit = 10) {
+    function __construct(Parser $parser, $limit = 10)
+    {
         $this->inner = $parser;
         $this->limit = $limit;
     }
@@ -20,7 +24,8 @@ class CachingParser implements Parser, Countable {
      * @param string $version
      * @return Version
      */
-    function parse($version) {
+    function parse($version)
+    {
         if (array_key_exists($version, $this->cache)) {
             $obj = $this->cache[$version];
             unset($this->cache[$version]);
@@ -38,23 +43,28 @@ class CachingParser implements Parser, Countable {
      * @param string $version
      * @return bool
      */
-    function isValidVersion($version) {
-        return $this->parse($version) !== NULL;
+    function isValidVersion($version)
+    {
+        return $this->parse($version) !== null;
     }
 
-    function count() {
+    function count()
+    {
         return count($this->cache);
     }
 
-    function flush() {
+    function flush()
+    {
         $this->cache = [];
     }
 
-    function getLimit() {
+    function getLimit()
+    {
         return $this->limit;
     }
 
-    function isInCache($version) {
+    function isInCache($version)
+    {
         return array_key_exists($version, $this->cache);
     }
 
