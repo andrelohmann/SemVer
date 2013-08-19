@@ -39,7 +39,27 @@ class Version {
             if ($b->pre_release === []) {
                 return -1;
             }
-            //todo: compare bucket by bucket
+            $aCount = count($a->pre_release);
+            $bCount = count($b->pre_release);
+            $len = min($aCount, $bCount);
+            for ($i = 0; $i < $len; $i++) {
+                $aVal = $a->pre_release[$i];
+                $bVal = $b->pre_release[$i];
+                $is_int_a = filter_var($aVal, FILTER_VALIDATE_INT) !== FALSE;
+                $is_int_b = filter_var($bVal, FILTER_VALIDATE_INT) !== FALSE;
+                if ($is_int_a) {
+                    if ($is_int_b && $aVal !== $bVal) {
+                        return $aVal - $bVal;
+                    }
+                } elseif ($is_int_b) {
+                    return 1;
+                }
+                $r = strcmp($aVal, $bVal);
+                if ($r !== 0){
+                    return $r;
+                }
+            }
+            return $aCount - $bCount;
         } elseif ($b->pre_release !== []) {
             return 1;
         }
