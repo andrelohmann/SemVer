@@ -5,14 +5,14 @@ require_once 'Version.php';
 class RegexParser {
 
     private $regex = "/^
-        (?P<major>0|(?:[1-9][0-9]*))
+        (?#major)(0|(?:[1-9][0-9]*))
         \.
-        (?P<minor>0|(?:[1-9][0-9]*))
+        (?#minor)(0|(?:[1-9][0-9]*))
         \.
-        (?P<patch>0|(?:[1-9][0-9]*))
+        (?#patch)(0|(?:[1-9][0-9]*))
         (?:
             \-
-            (?P<pre_release>
+            (?#pre-release)(
                 (?:(?:0|(?:[1-9][0-9]*))|(?:[a-zA-Z1-9-][a-zA-Z0-9-]*))
                 (?:
                     \.
@@ -22,7 +22,7 @@ class RegexParser {
         )?
         (?:
             \+
-            (?P<build>
+            (?#build)(
                 [0-9a-zA-Z-]+
                 (?:\.[a-zA-Z0-9-]+)*
             )
@@ -32,25 +32,21 @@ class RegexParser {
     function parse($version) {
         $matches = array();
         if ($r = @preg_match($this->regex, $version, $matches)) {
-            $variables = array_diff_key(
-                $matches,
-                array_fill_keys(range(0,count($matches)/2), 0)
-            );
 
-            $variables['pre_release'] = empty($variables['pre_release'])
+            $matches[4] = empty($matches[4])
                 ? []
-                :  explode('.', $variables['pre_release']);
+                : explode('.', $matches[4]);
 
-            $variables['build'] = empty($variables['build'])
+            $matches[5] = empty($matches[5])
                 ? []
-                :  explode('.', $variables['build']);
+                : explode('.', $matches[5]);
 
             return new Version(
-                $variables['major'],
-                $variables['minor'],
-                $variables['patch'],
-                $variables['pre_release'],
-                $variables['build']
+                $matches[1],
+                $matches[2],
+                $matches[3],
+                $matches[4],
+                $matches[5]
             );
         }
         if ($r === FALSE) {
