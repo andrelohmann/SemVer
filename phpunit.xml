@@ -9,6 +9,6 @@
         </testsuite>
     </testsuites>
     <logging>
-        <log type="coverage-text" target="php://stdout" lowUpperBound="35" highLowerBound="75" />
+        <log type="coverage-html" target="test/coverage/" lowUpperBound="35" highLowerBound="75" />
     </logging>
 </phpunit>
