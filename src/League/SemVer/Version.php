@@ -49,8 +49,8 @@ class Version {
             for ($i = 0; $i < $len; $i++) {
                 $aVal = $a->pre_release[$i];
                 $bVal = $b->pre_release[$i];
-                $is_int_a = filter_var($aVal, FILTER_VALIDATE_INT) !== false;
-                $is_int_b = filter_var($bVal, FILTER_VALIDATE_INT) !== false;
+                $is_int_a = is_int($aVal);
+                $is_int_b = is_int($bVal);
                 if ($is_int_a) {
                     if ($is_int_b && $aVal !== $bVal) {
                         return $aVal - $bVal;

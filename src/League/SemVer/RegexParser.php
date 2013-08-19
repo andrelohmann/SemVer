@@ -35,13 +35,25 @@ class RegexParser implements Parser
         $matches = array();
         if ($r = preg_match($this->regex, $version, $matches)) {
 
-            $matches[4] = empty($matches[4])
-                ? []
-                : explode('.', $matches[4]);
+            if (!empty($matches[4])) {
+                foreach ($matches[4] = explode('.', $matches[4]) as $i => $token) {
+                    if (!is_int($token) && filter_var($token, FILTER_VALIDATE_INT) !== false) {
+                        $matches[4][$i] = (int) $token;
+                    }
+                }
+            } else {
+                $matches[4] = [];
+            }
 
-            $matches[5] = empty($matches[5])
-                ? []
-                : explode('.', $matches[5]);
+            if (!empty($matches[5])) {
+                foreach ($matches[5] = explode('.', $matches[5]) as $i => $token) {
+                    if (!is_int($token) && filter_var($token, FILTER_VALIDATE_INT) !== false) {
+                        $matches[5][$i] = (int) $token;
+                    }
+                }
+            } else {
+                $matches[5] = [];
+            }
 
             return new Version(
                 $matches[1],
