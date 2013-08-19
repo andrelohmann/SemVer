@@ -55,4 +55,8 @@ class RegexParser {
         return NULL;
     }
 
+    function isValidVersion($string) {
+        return preg_match($this->regex, $string) === 1;
+    }
+
 }

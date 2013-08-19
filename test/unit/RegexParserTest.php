@@ -36,6 +36,8 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
      */
     function testBadCases($expr) {
         $parser = new RegexParser();
+        $this->assertFalse($parser->isValidVersion($expr));
+
         $actual = $parser->parse($expr);
         $this->assertNull($actual);
     }
@@ -69,6 +71,8 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
      */
     function testGoodCases($expr, Version $expected) {
         $parser = new RegexParser();
+        $this->assertTrue($parser->isValidVersion($expr));
+
         $actual = $parser->parse($expr);
         $this->assertEquals($expected, $actual);
     }
