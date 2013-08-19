@@ -5,10 +5,10 @@ class Version {
     public $major = 0;
     public $minor = 0;
     public $patch = 0;
-    public $pre_release = '';
-    public $build = '';
+    public $pre_release = [];
+    public $build = [];
 
-    function __construct($major, $minor, $patch, $pre_release = '', $build = '') {
+    function __construct($major, $minor, $patch, $pre_release = [], $build = []) {
         $this->major = $major;
         $this->minor = $minor;
         $this->patch = $patch;
@@ -35,27 +35,12 @@ class Version {
             return 1;
         }
 
-        if ($a->pre_release !== '') {
-            if ($b->pre_release === '') {
+        if ($a->pre_release !== []) {
+            if ($b->pre_release === []) {
                 return -1;
             }
-
-            $len_a = strlen($a->pre_release);
-            $len_b = strlen($b->pre_release);
-            if ($len_a < $len_b) {
-                $pos = strpos($b->pre_release, $a->pre_release);
-                if ($pos === 0) {
-                    return -1;
-                }
-            } elseif ($len_b < $len_a) {
-                $pos = strpos($a->pre_release, $b->pre_release);
-                if ($pos === 0) {
-                    return 1;
-                }
-            }
-
-            return strcmp($a->pre_release, $b->pre_release);
-        } elseif ($b->pre_release !== '') {
+            //todo: compare bucket by bucket
+        } elseif ($b->pre_release !== []) {
             return 1;
         }
 

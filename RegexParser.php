@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Version.php';
+
 class RegexParser {
 
     private $regex = "/^
@@ -34,12 +36,27 @@ class RegexParser {
                 $matches,
                 array_fill_keys(range(0,count($matches)/2), 0)
             );
-            return $variables;
+
+            $variables['pre_release'] = empty($variables['pre_release'])
+                ? []
+                :  explode('.', $variables['pre_release']);
+
+            $variables['build'] = empty($variables['build'])
+                ? []
+                :  explode('.', $variables['build']);
+
+            return new Version(
+                $variables['major'],
+                $variables['minor'],
+                $variables['patch'],
+                $variables['pre_release'],
+                $variables['build']
+            );
         }
         if ($r === FALSE) {
             throw new Exception(preg_last_error());
         }
-        return FALSE;
+        return NULL;
     }
 
 }

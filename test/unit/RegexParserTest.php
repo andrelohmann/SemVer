@@ -36,34 +36,34 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
     function testBadCases($expr) {
         $parser = new RegexParser();
         $actual = $parser->parse($expr);
-        $this->assertFalse($actual);
+        $this->assertNull($actual);
     }
 
     function provideGoodCases() {
         return [
-            '0.0.0' => ['0.0.0', ['major' => '0', 'minor' => '0', 'patch' => '0']],
-            '1.0.0' => ['1.0.0', ['major' => '1', 'minor' => '0', 'patch' => '0']],
-            '1.0.0--' => ['1.0.0--', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => '-']],
-            '1.0.0-alpha' => ['1.0.0-alpha', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'alpha']],
-            '1.0.0-beta' => ['1.0.0-beta', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'beta']],
-            '1.0.0-10' => ['1.0.0-10', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => '10']],
-            '1.0.0-alpha.beta' => ['1.0.0-alpha.beta', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'alpha.beta']],
-            '1.0.0-alpha.beta.gamma' => ['1.0.0-alpha.beta.gamma', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'alpha.beta.gamma']],
-            '1.0.0-beta.12' => ['1.0.0-beta.12', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'beta.12']],
-            '1.0.0-rc' => ['1.0.0-rc', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'rc']],
-            '1.0.0-rc.1' => ['1.0.0-rc.1', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'rc.1']],
-            '1.0.0-rc.12' => ['1.0.0-rc.12', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'rc.12']],
-            '1.0.0+a' => ['1.0.0+a', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => '', 'build' => 'a']],
-            '1.0.0+abc' => ['1.0.0+abc', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => '', 'build' => 'abc']],
-            '1.0.0+abc.01' => ['1.0.0+abc.01', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => '', 'build' => 'abc.01']],
-            '1.0.0-alpha+abc' => ['1.0.0-alpha+abc', ['major' => '1', 'minor' => '0', 'patch' => '0', 'pre_release' => 'alpha', 'build' => 'abc']],
+            '0.0.0' => ['0.0.0', new Version('0', '0', '0', [], [])],
+            '1.0.0' => ['1.0.0', new Version('1', '0', '0', [], [])],
+            '1.0.0--' => ['1.0.0--', new Version('1', '0', '0', ['-'], [])],
+            '1.0.0-alpha' => ['1.0.0-alpha', new Version('1', '0', '0', ['alpha'], [])],
+            '1.0.0-beta' => ['1.0.0-beta', new Version('1', '0', '0', ['beta'], [])],
+            '1.0.0-10' => ['1.0.0-10', new Version('1', '0', '0', ['10'], [])],
+            '1.0.0-alpha.beta' => ['1.0.0-alpha.beta', new Version('1', '0', '0', ['alpha','beta'], [])],
+            '1.0.0-alpha.beta.gamma' => ['1.0.0-alpha.beta.gamma', new Version('1', '0', '0', ['alpha','beta','gamma'], [])],
+            '1.0.0-beta.12' => ['1.0.0-beta.12', new Version('1', '0', '0', ['beta','12'], [])],
+            '1.0.0-rc' => ['1.0.0-rc', new Version('1', '0', '0', ['rc'], [])],
+            '1.0.0-rc.1' => ['1.0.0-rc.1', new Version('1', '0', '0', ['rc','1'], [])],
+            '1.0.0-rc.12' => ['1.0.0-rc.12', new Version('1', '0', '0', ['rc','12'], [])],
+            '1.0.0+a' => ['1.0.0+a', new Version('1', '0', '0', [], ['a'])],
+            '1.0.0+abc' => ['1.0.0+abc', new Version('1', '0', '0', [], ['abc'])],
+            '1.0.0+abc.01' => ['1.0.0+abc.01', new Version('1', '0', '0', [], ['abc','01'])],
+            '1.0.0-alpha+abc' => ['1.0.0-alpha+abc', new Version('1', '0', '0', ['alpha'], ['abc'])],
         ];
     }
 
     /**
      * @dataProvider provideGoodCases
      */
-    function testGoodCases($expr, array $expected) {
+    function testGoodCases($expr, Version $expected) {
         $parser = new RegexParser();
         $actual = $parser->parse($expr);
         $this->assertEquals($expected, $actual);
