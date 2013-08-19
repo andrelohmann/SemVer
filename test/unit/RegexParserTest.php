@@ -26,7 +26,7 @@ class RegexParserTest extends \PHPUnit_Framework_TestCase {
             'Leading 0 minor' => ['0.01.0'],
             'Leading 0 patch' => ['0.0.01'],
             'Leading 0 pre-release' => ['1.0.0-rc.01'],
-            'Empt ydot-separated pre-release identifier' => ['1.0.0-rc.'],
+            'Empty dot-separated pre-release identifier' => ['1.0.0-rc.'],
             'Empty dot-separated build identifier' => ['1.0.0+rc.'],
         ];
     }
