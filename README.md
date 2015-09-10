@@ -26,7 +26,7 @@ interface Parser
 ##Usage
 
 ```php
-$parser = (new ParserFactory())->createParser();
+$parser = new League\SemVer\RegexParser();
 var_dump($parser->parse('not a valid version'));
 var_dump($parser->parse('1.0.0-alpha.1+48e4f51e0b2751ec3bc4a2bde809e46d60eb1d6e'));
 ```
